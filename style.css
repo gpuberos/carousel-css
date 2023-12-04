@@ -1,0 +1,179 @@
+/* ==========================================================================
+  CSS Reset
+  ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+  Carousel (Full CSS)
+  ========================================================================== */
+
+:root {
+    /* Réglage hauteur du slide */
+    --slide-height: 60vh;
+}
+
+#slider {
+    width: calc(100% - 100px);
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#slider input[type=radio] {
+    display: none;
+}
+
+#slider label {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#slides {
+    position: relative;
+    z-index: 1;
+    padding: 10px;
+    border: 3px solid #ccc;
+    background: #fff;
+}
+
+#overflow {
+    width: 100%;
+    overflow: hidden;
+}
+
+#slide1:checked ~ #slides .inner {
+    margin-left: 0;
+}
+
+#slide2:checked ~ #slides .inner {
+    margin-left: -100%;
+}
+
+#slide3:checked ~ #slides .inner {
+    margin-left: -200%;
+}
+
+#slide4:checked ~ #slides .inner {
+    margin-left: -300%;
+}
+
+#slides .inner {
+    width: 400%;
+    height: var(--slide-height);
+    /* cubic-bezier : créez l'effet de transition qui accélère et décélère  */
+    transition: margin-left 800ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
+}
+
+#slides .slide {
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 100%;
+    color: #fff;
+}
+
+#slides .slide_1 {
+    background: #00171F;
+}
+
+#slides .slide_2 {
+    background: #003459;
+}
+
+#slides .slide_3 {
+    background: #007EA7;
+}
+
+#slides .slide_4 {
+    background: #00A8E8;
+}
+
+#controls {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 50px;
+    /* Calcul pour alignement flèche control avec hauteur de la slide */
+    transform: translatey(calc((-1 * var(--slide-height) / 2) - 50px));
+}
+
+#controls label {
+    display: none;
+    width: 50px;
+    height: 50px;
+    opacity: 0.4;
+    transition: opacity 0.2s ease-out;
+ }
+
+#controls label:hover {
+    opacity: 1;
+ }
+
+ /* Flèche (droite/suivant) qui change le slide lorsqu'on clique dessus. */
+#slide1:checked ~ #controls label:nth-child(2),
+#slide2:checked ~ #controls label:nth-child(3),
+#slide3:checked ~ #controls label:nth-child(4),
+#slide4:checked ~ #controls label:nth-child(1) {
+    float: right;
+    display: block;
+    margin-right: -50px;
+    background: center / contain no-repeat url("images/right-arrow.svg");
+}
+
+/* Flèche (gauche/précedent) qui change de slide lorsqu'on clique dessus. */
+#slide1:checked ~ #controls label:nth-child(4),
+#slide2:checked ~ #controls label:nth-child(1),
+#slide3:checked ~ #controls label:nth-child(2),
+#slide4:checked ~ #controls label:nth-child(3) {
+    float: left;
+    display: block;
+    margin-left: -50px;
+    background: center / contain no-repeat url("images/arrow-left.svg");
+}
+
+#bullets {
+    transform: translatey(-150%);
+}
+
+#bullets label {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 10px;
+    border-radius: 100%;
+    background: #ccc;
+}
+
+/* Change la bullet sélectionné en fonction de la slide active */
+#slide1:checked ~ #bullets label:nth-child(1),
+#slide2:checked ~ #bullets label:nth-child(2),
+#slide3:checked ~ #bullets label:nth-child(3),
+#slide4:checked ~ #bullets label:nth-child(4) {
+    background: #444;
+}
+
+@media screen and (max-width: 900px) {
+    #slide1:checked ~ #controls label:nth-child(2),
+    #slide2:checked ~ #controls label:nth-child(3),
+    #slide3:checked ~ #controls label:nth-child(4),
+    #slide4:checked ~ #controls label:nth-child(1),
+    #slide1:checked ~ #controls label:nth-child(4),
+    #slide2:checked ~ #controls label:nth-child(1),
+    #slide3:checked ~ #controls label:nth-child(2),
+    #slide4:checked ~ #controls label:nth-child(3) {
+        margin: 0;
+    }
+    
+    #slides {
+        /* largeur du slides (100%) - icone flèche 50px * 2 (100px) */
+        max-width: calc(100% - 100px);
+        margin: 0 auto;
+    }
+}
+
